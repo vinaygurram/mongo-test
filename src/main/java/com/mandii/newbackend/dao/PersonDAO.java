@@ -2,6 +2,7 @@ package com.mandii.newbackend.dao;
 
 import com.mandii.newbackend.api.PersonAPI;
 import com.mandii.newbackend.core.Person;
+import com.mandii.newbackend.protos.PersonProtos;
 import com.mongodb.Block;
 import com.mongodb.async.SingleResultCallback;
 import com.mongodb.async.client.FindIterable;
@@ -23,7 +24,7 @@ public class PersonDAO {
     }
 
     public List<PersonAPI> listPersons() {
-        List<PersonAPI> persons = new ArrayList<>();
+        final List<PersonAPI> persons = new ArrayList<>();
         FindIterable<Document> iterable = mongoCollection.find();
         iterable.forEach(new Block<Document>() {
                              @Override
@@ -52,5 +53,31 @@ public class PersonDAO {
         return persons;
     }
 
-
+    public PersonProtos.PersonList.Builder listPersonsWithProto() {
+        PersonProtos.PersonList.Builder personListBuilder = PersonProtos.PersonList.newBuilder();
+        FindIterable<Document> iterable = mongoCollection.find();
+        iterable.forEach(new Block<Document>() {
+                             @Override
+                             public void apply(Document document) {
+                                 try {
+                                     Person person = new Person(document.getObjectId("_id"),document.getString("first"), document.getString("last"), document.getString("dob"),
+                                             document.getString("gender"), document.getString("hair_color"), document.getString("occupation"), document.getString("nationality"));
+                                     PersonProtos.Person protoPerson= PersonProtos.Person.newBuilder()
+                                             .setFirst(person.getFirst())
+                                             .setLast(person.getLast())
+                                             .setGender(person.getGender())
+                                             .setOccupation(person.getOccupation()).build();
+                                     personListBuilder.addPerson(protoPerson);
+                                 }catch (Exception e) {
+                                     e.printStackTrace();
+                                 }
+                             }
+                         },
+                new SingleResultCallback<Void>() {
+                    @Override
+                    public void onResult(Void aVoid, Throwable throwable) {
+                    }
+                });
+        return personListBuilder;
+    }
 }

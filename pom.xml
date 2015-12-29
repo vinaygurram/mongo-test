@@ -20,21 +20,32 @@
 
         <!-- Dependencies version -->
         <dropwizard.version>0.9.1</dropwizard.version>
-        <mongojack.version>2.5.1</mongojack.version>
         <mongodbdriver.version>3.0.4</mongodbdriver.version>
+
 
     </properties>
 
     <dependencies>
+
+        <!-- Dropwiazrd framework-->
         <dependency>
             <groupId>io.dropwizard</groupId>
             <artifactId>dropwizard-core</artifactId>
             <version>${dropwizard.version}</version>
         </dependency>
+
+        <!-- Mongo dependencies -->
         <dependency>
             <groupId>org.mongodb</groupId>
             <artifactId>mongodb-driver-async</artifactId>
             <version>${mongodbdriver.version}</version>
+        </dependency>
+
+        <!-- Protobuff dependencies -->
+        <dependency>
+            <groupId>io.dropwizard.modules</groupId>
+            <artifactId>dropwizard-protobuf</artifactId>
+            <version>0.9.1-1</version>
         </dependency>
 
     </dependencies>

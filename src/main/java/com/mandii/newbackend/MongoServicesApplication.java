@@ -11,6 +11,8 @@ import com.mongodb.async.client.MongoClients;
 import com.mongodb.async.client.MongoDatabase;
 
 import io.dropwizard.Application;
+import io.dropwizard.jersey.protobuf.InvalidProtocolBufferExceptionMapper;
+import io.dropwizard.jersey.protobuf.ProtocolBufferMessageBodyProvider;
 import io.dropwizard.setup.Environment;
 
 /**
@@ -31,6 +33,11 @@ public class MongoServicesApplication extends Application<MongoTestConfiguration
         //mongo dbs and daos
         final MongoDatabase persons = mongoClient.getDatabase("test");
         final PersonDAO personDAO = new PersonDAO(persons.getCollection("nettuts"));
+
+        //register protobuf
+        environment.jersey().register(new ProtocolBufferMessageBodyProvider());
+        environment.jersey().register(new InvalidProtocolBufferExceptionMapper());
+
 
         MongoManaged mongoManaged = new MongoManaged(mongoClient);
         environment.lifecycle().manage(mongoManaged);

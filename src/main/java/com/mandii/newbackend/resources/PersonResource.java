@@ -2,8 +2,8 @@ package com.mandii.newbackend.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.mandii.newbackend.api.PersonAPI;
-import com.mandii.newbackend.core.Person;
 import com.mandii.newbackend.dao.PersonDAO;
+import com.mandii.newbackend.protos.PersonProtos;
 
 import java.util.List;
 
@@ -12,6 +12,8 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+
+import io.dropwizard.jersey.protobuf.ProtocolBufferMediaType;
 
 /**
  * PersonAPI DAO
@@ -31,5 +33,13 @@ public class PersonResource {
     @GET@Timed@Path("/list")
     public List<PersonAPI> getPersons() {
         return personDAO.listPersons();
+    }
+
+    @GET@Timed@Path("/list/protobuf")@Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
+    public PersonProtos.PersonList getProtoPersons() {
+        PersonProtos.PersonList.Builder personListBuilder =  personDAO.listPersonsWithProto();
+        System.out.println(personListBuilder);
+        PersonProtos.PersonList personList = personListBuilder.build();
+        return personList;
     }
 }
