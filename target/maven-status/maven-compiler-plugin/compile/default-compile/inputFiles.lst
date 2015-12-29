@@ -1,0 +1,8 @@
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/core/Person.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/MongoServicesApplication.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/MongoTestConfiguration.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/api/PersonAPI.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/dao/PersonDAO.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/db/MongoManaged.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/db/MongoManagedHealthCheck.java
+/Users/vinay/projects/play_projects/MongoConnectTest/src/main/java/com/mandii/newbackend/resources/PersonResource.java

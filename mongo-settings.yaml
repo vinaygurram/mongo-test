@@ -1,0 +1,3 @@
+defaultMongoHost: localhost
+defaultMongoDB: test
+defaultPort: 27017

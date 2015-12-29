@@ -1,0 +1,10 @@
+com/mandii/newbackend/resources/PersonResource.class
+com/mandii/newbackend/dao/PersonDAO$1.class
+com/mandii/newbackend/MongoTestConfiguration.class
+com/mandii/newbackend/db/MongoManagedHealthCheck.class
+com/mandii/newbackend/dao/PersonDAO$2.class
+com/mandii/newbackend/dao/PersonDAO.class
+com/mandii/newbackend/db/MongoManaged.class
+com/mandii/newbackend/api/PersonAPI.class
+com/mandii/newbackend/core/Person.class
+com/mandii/newbackend/MongoServicesApplication.class
