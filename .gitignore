@@ -17,13 +17,38 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
-# idea 
-*.iml
+## idea
+
+# Directory-based project format:
 .idea/
-/out/
-# Crashlytics plugin
+# File-based project format:
+*.ipr
+*.iws
+# Plugin-specific files:
+out/
 com_crashlytics_export_strings.xml
-crashlytics.properties
-crashlytics-build.properties
-fabric.properties
+
+## OSX
+
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Icon must end with two \r
+Icon
+
+
+# Thumbnails
+._*
+
+# Files that might appear on external disk
+.Spotlight-V100
+.Trashes
+
+# Directories potentially created on remote AFP share
+.AppleDB
+.AppleDesktop
+Network Trash Folder
+Temporary Items
+.apdisk
 
