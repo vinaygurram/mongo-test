@@ -19,7 +19,7 @@ import io.dropwizard.jersey.protobuf.ProtocolBufferMediaType;
  * PersonAPI DAO
  * Created by vinay on 29/12/15.
  */
-@Path("/pesron")
+@Path("/person")
 @Produces(value = MediaType.APPLICATION_JSON)
 @Consumes(value = MediaType.APPLICATION_JSON)
 public class PersonResource {
@@ -31,15 +31,13 @@ public class PersonResource {
     }
 
     @GET@Timed@Path("/list")
-    public List<PersonAPI> getPersons() {
-        return personDAO.listPersons();
+    public List<PersonAPI> getPersons() throws InterruptedException {
+        List<PersonAPI> personAPIs = personDAO.listPersons();
+        return personAPIs;
     }
 
     @GET@Timed@Path("/list/protobuf")@Produces(ProtocolBufferMediaType.APPLICATION_PROTOBUF)
-    public PersonProtos.PersonList getProtoPersons() {
-        PersonProtos.PersonList.Builder personListBuilder =  personDAO.listPersonsWithProto();
-        System.out.println(personListBuilder);
-        PersonProtos.PersonList personList = personListBuilder.build();
-        return personList;
+    public PersonProtos.PersonList getProtoPersons() throws InterruptedException {
+        return personDAO.listPersonsWithProto();
     }
 }

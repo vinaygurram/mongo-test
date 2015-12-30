@@ -12,6 +12,8 @@ import org.bson.Document;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.TimeUnit;
 
 /**
  * CRUD operation support as of now Created by vinay on 29/12/15.
@@ -23,8 +25,9 @@ public class PersonDAO {
         this.mongoCollection = mongoCollection;
     }
 
-    public List<PersonAPI> listPersons() {
+    public List<PersonAPI> listPersons() throws InterruptedException {
         final List<PersonAPI> persons = new ArrayList<>();
+        final CountDownLatch doneLatch = new CountDownLatch(1);
         FindIterable<Document> iterable = mongoCollection.find();
         iterable.forEach(new Block<Document>() {
                              @Override
@@ -47,15 +50,17 @@ public class PersonDAO {
                 new SingleResultCallback<Void>() {
                     @Override
                     public void onResult(Void aVoid, Throwable throwable) {
-                        System.out.println("Operation Finished");
+                        doneLatch.countDown();
                     }
                 });
+        doneLatch.await(1, TimeUnit.SECONDS);
         return persons;
     }
 
-    public PersonProtos.PersonList.Builder listPersonsWithProto() {
-        PersonProtos.PersonList.Builder personListBuilder = PersonProtos.PersonList.newBuilder();
-        FindIterable<Document> iterable = mongoCollection.find();
+    public PersonProtos.PersonList listPersonsWithProto() throws InterruptedException {
+        final PersonProtos.PersonList.Builder personListBuilder = PersonProtos.PersonList.newBuilder();
+        final CountDownLatch doneLatch = new CountDownLatch(1);
+        final FindIterable<Document> iterable = mongoCollection.find();
         iterable.forEach(new Block<Document>() {
                              @Override
                              public void apply(Document document) {
@@ -76,8 +81,10 @@ public class PersonDAO {
                 new SingleResultCallback<Void>() {
                     @Override
                     public void onResult(Void aVoid, Throwable throwable) {
+                        doneLatch.countDown();
                     }
                 });
-        return personListBuilder;
+        doneLatch.await(1, TimeUnit.SECONDS);
+        return personListBuilder.build();
     }
 }
